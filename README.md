@@ -31,44 +31,23 @@ becomes C. To change a message back, each letter is replaced by the one three be
 ```
 #include <stdio.h>
 #include <string.h>
-
-#include <ctype.h>
-void main()
-
+void caesarCipher(char *text, int shift) 
 {
-    char plain[10],cipher[10];
-    int key,i,length;
-    int result;
-    printf("\n Enter the plain text:");
-    scanf("%s", plain);
-    printf("\n Enter the key value:");
-    scanf("%d", &key);
-    printf("\n \n \t PLAIN TEXt: %s", plain);
-    printf("\n \n \t ENCRYPTED TEXT:");
-    for(i=0, length = strlen(plain); i<length; i++)
+    for (int i = 0; text[i]; i++) 
     {
+        if (text[i] >= 'A' && text[i] <= 'Z')
+        text[i] = ((text[i]- 'A' + shift) % 26) + 'A';
         
-        cipher[i]=plain[i] + key;
-        if (isupper(plain[i]) && (cipher[i] > 'Z'))
-        cipher[i] = cipher[i] - 26;
-        if (islower(plain[i]) && (cipher[i] > 'z'))
-        cipher[i] = cipher[i] - 26;
-        printf("%c", cipher[i]);
-
     }
-    printf("\n \n \t AFTER DECRYPTION : ");
-    for(i=0;i<length;i++)
-    {
-        
-        plain[i]=cipher[i]-key;
-        if(isupper(cipher[i])&&(plain[i]<'A'))
-        plain[i]=plain[i]+26;
-        if(islower(cipher[i])&&(plain[i]<'a'))
-        plain[i]=plain[i]+26;
-        printf("%c",plain[i]);
-    }
-  
-
+ }
+int main() 
+{
+    char text[] = "SANJEEV";
+    caesarCipher(text, 3);
+    printf("Encrypted Message: %s\n", text);
+    caesarCipher(text,-3);
+    printf("Decrypted Message: %s\n", text);
+    return 0;
     
 }
 ```
